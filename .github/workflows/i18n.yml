@@ -1,0 +1,67 @@
+name: Chinese build
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - i18n
+    paths:
+      - 'app/locales/**'
+      - 'script/i18n/**'
+      - 'app/webpack.common.ts'
+      - '.github/workflows/i18n.yml'
+
+env:
+  NODE_VERSION: 24.22.1
+
+jobs:
+  verify:
+    name: Verify locale
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          submodules: recursive
+      - uses: actions/setup-node@v6
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Install dependencies
+        run: node vendor/yarn-1.21.1.js install --frozen-lockfile
+      - name: Regenerate baseline locale
+        run: node script/i18n/extract.js
+      - name: Fail on uncommitted baseline drift
+        run: git diff --exit-code app/locales/en.json
+      - name: Check translation coverage
+        run: node script/i18n/check.js --strict
+
+  build:
+    name: ${{ matrix.friendlyName }}
+    needs: verify
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            friendlyName: Windows
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          submodules: recursive
+      - uses: actions/setup-node@v6
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Install dependencies
+        run: node vendor/yarn-1.21.1.js install --frozen-lockfile
+      - name: Build Chinese app
+        run: node vendor/yarn-1.21.1.js build:prod
+        env:
+          DESKTOP_LOCALE: zh-CN
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: desktop-zh-${{ matrix.friendlyName }}
+          path: dist/**
+          retention-days: 14

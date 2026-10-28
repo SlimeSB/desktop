@@ -48,7 +48,10 @@
     "draft-release": "ts-node -P script/tsconfig.json script/draft-release/index.ts",
     "draft-release:format": "prettier --check --write changelog.json app/package.json && yarn validate-changelog",
     "draft-release:pr": "ts-node -P script/tsconfig.json script/draft-release/draft-pull-request.ts",
-    "validate-changelog": "ts-node -P script/tsconfig.json script/validate-changelog.ts"
+    "validate-changelog": "ts-node -P script/tsconfig.json script/validate-changelog.ts",
+    "i18n:extract": "node script/i18n/extract.js",
+    "i18n:check": "node script/i18n/check.js",
+    "i18n:sync": "node script/i18n/extract.js && node script/i18n/sync.js"
   },
   "author": {
     "name": "GitHub, Inc.",

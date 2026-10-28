@@ -33,6 +33,9 @@ const commonConfig: webpack.Configuration = {
           {
             loader: 'ts-loader',
           },
+          {
+            loader: path.resolve(__dirname, '..', 'script', 'i18n', 'loader.js'),
+          },
         ],
         exclude: /node_modules/,
       },
