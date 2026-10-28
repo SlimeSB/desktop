@@ -446,7 +446,7 @@
   "ui.add-repository.create-repository.47bfc0af": "创建仓库",
   "ui.add-repository.create-repository.50968152": "使用 README 初始化此仓库",
   "ui.add-repository.create-repository.55f8ebc8": "描述",
-  "ui.add-repository.create-repository.7358748d": "此目录中已包含 README.md 文件。勾选\r\n          此选项将覆盖现有文件。",
+  "ui.add-repository.create-repository.57aae072": "此目录已包含 README.md 文件。勾选此项将覆盖现有文件。",
   "ui.add-repository.create-repository.7372a4ef": "了解子模块。",
   "ui.add-repository.create-repository.7ff8b164": "Git 忽略",
   "ui.add-repository.create-repository.841a60d6": "添加此仓库",

@@ -272,6 +272,7 @@ function collectLocaleSites(sourceFile) {
 }
 
 function transform(source, fileName, options = {}) {
+  source = source.replace(/\r\n/g, '\n')
   const sourceFile = ts.createSourceFile(
     fileName,
     source,

@@ -446,7 +446,7 @@
   "ui.add-repository.create-repository.47bfc0af": "Create Repository",
   "ui.add-repository.create-repository.50968152": "Initialize this repository with a README",
   "ui.add-repository.create-repository.55f8ebc8": "Description",
-  "ui.add-repository.create-repository.7358748d": "This directory contains a README.md file already. Checking\r\n          this box will result in the existing file being overwritten.",
+  "ui.add-repository.create-repository.57aae072": "This directory contains a README.md file already. Checking\n          this box will result in the existing file being overwritten.",
   "ui.add-repository.create-repository.7372a4ef": "Learn about submodules.",
   "ui.add-repository.create-repository.7ff8b164": "Git ignore",
   "ui.add-repository.create-repository.841a60d6": "add this repository",
