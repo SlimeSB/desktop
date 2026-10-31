@@ -44,6 +44,29 @@ export function mapStatus(status: AppFileStatus): string {
   }
 }
 
+/** Stylesheet suffix for the file status octicon, keep in sync with _octicon-status.scss. */
+export function statusClassName(status: AppFileStatus): string {
+  switch (status.kind) {
+    case AppFileStatusKind.New:
+    case AppFileStatusKind.Untracked:
+      return 'new'
+    case AppFileStatusKind.Modified:
+      return 'modified'
+    case AppFileStatusKind.Deleted:
+      return 'deleted'
+    case AppFileStatusKind.Renamed:
+      return 'renamed'
+    case AppFileStatusKind.Conflicted:
+      return isConflictWithMarkers(status) && status.conflictMarkerCount === 0
+        ? 'resolved'
+        : 'conflicted'
+    case AppFileStatusKind.Copied:
+      return 'copied'
+    default:
+      return assertNever(status, `Unknown file status ${status}`)
+  }
+}
+
 /** Typechecker helper to identify conflicted files */
 export function isConflictedFile(
   file: AppFileStatus

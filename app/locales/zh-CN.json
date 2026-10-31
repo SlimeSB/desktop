@@ -1253,7 +1253,7 @@
   "ui.history.selected-commits.3d8febd7": "提交中没有文件",
   "ui.history.selected-commits.54b8dbaa": "所选提交的文件列表",
   "ui.history.selected-commits.60064157": "选择多个不连续的提交时无法显示差异。",
-  "ui.history.selected-commits.723d9262": "{0} 更改了 {1}",
+  "ui.history.selected-commits.723d9262": "更改了 {0} 个文件",
   "ui.history.selected-commits.a532bbba": "在 {0} 中打开",
   "ui.history.selected-commits.ac816375": "右键单击多个提交以查看选项。",
   "ui.history.selected-commits.aed8284d": "选择单个提交或连续提交范围以查看差异。",

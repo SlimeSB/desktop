@@ -50,24 +50,29 @@ jobs:
         run: node vendor/yarn-1.21.1.js install --frozen-lockfile
       - name: Build Chinese app
         run: node vendor/yarn-1.21.1.js build:prod
+        env:
+          DESKTOP_DISABLE_UPDATES: '1'
+      - name: Build installer
+        run: node vendor/yarn-1.21.1.js package
+        env:
+          npm_config_arch: x64
       - name: Read version
         id: version
         shell: pwsh
         run: |
           $version = node -p "require('./app/package.json').version"
           "version=$version" | Out-File -FilePath $env:GITHUB_OUTPUT -Append
-      - name: Archive app
+      - name: Locate installer
         shell: pwsh
         run: |
-          $name = "GitHubDesktop-zh-CN-${{ steps.version.outputs.version }}-win32-x64"
-          Compress-Archive -Path "dist/GitHubDesktop-win32-x64" -DestinationPath "$name.zip"
-          echo "ARCHIVE=$name.zip" >> $env:GITHUB_ENV
+          $installer = Resolve-Path "dist/GitHubDesktopSetup-x64.exe"
+          echo "INSTALLER=$installer" >> $env:GITHUB_ENV
       - name: Publish release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ startsWith(github.ref, 'refs/tags/') && github.ref_name || format('zh-v{0}', steps.version.outputs.version) }}
           name: 中文版 ${{ steps.version.outputs.version }}
-          body: "基于上游 desktop/desktop 构建的简体中文界面版本，功能未改动，解压运行 GitHubDesktop.exe，未签名构建可能触发 SmartScreen 提示。"
-          files: ${{ env.ARCHIVE }}
+          body: "基于上游 desktop/desktop 构建的简体中文界面版本，已关闭应用自动更新。下载 GitHubDesktopSetup-x64.exe 运行安装。未签名构建可能触发 SmartScreen 提示。"
+          files: ${{ env.INSTALLER }}
           draft: false
           prerelease: false
