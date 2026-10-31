@@ -75,4 +75,4 @@ jobs:
           body: "基于上游 desktop/desktop 构建的简体中文界面版本，已关闭应用自动更新。下载 GitHubDesktopSetup-x64.exe 运行安装。未签名构建可能触发 SmartScreen 提示。"
           files: ${{ env.INSTALLER }}
           draft: false
-          prerelease: false
+          prerelease: ${{ contains(github.ref_name, 'beta') }}
